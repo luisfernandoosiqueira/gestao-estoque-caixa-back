@@ -1,33 +1,125 @@
-HELP.md
+############################
+# SO / Arquivos temporários
+############################
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+ehthumbs.db
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+.Trash-*
+.fuse_hidden*
+.nfs*
+
+############################
+# Logs e temporários gerais
+############################
+*.log
+*.log.*
+*.out
+*.tmp
+*.swp
+*.swo
+*.orig
+*.bak
+
+# Heap / crash logs
+hs_err_pid*
+replay_pid*
+
+############################
+# Java / Maven / Build
+############################
+# Maven
 target/
-.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+.mvn/timing.properties
+# (IMPORTANTE) Deixe o Maven Wrapper versionado:
+#   - mvnw
+#   - mvnw.cmd
+#   - .mvn/wrapper/maven-wrapper.properties
+#   - .mvn/wrapper/maven-wrapper.jar
+# Portanto, NÃO ignore o wrapper.jar aqui.
 
-### STS ###
+# Gradle (caso alguém abra com Gradle)
+.gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Saídas de compilação comuns
+out/
+bin/
+
+############################
+# IDEs
+############################
+# Eclipse / STS
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# IntelliJ IDEA
+.idea/
 *.iml
+*.iws
 *.ipr
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+# VS Code
 .vscode/
+
+############################
+# Ferramentas/ambiente
+############################
+# Arquivos de env (se usar)
+.env
+.env.*
+*.env.local
+
+############################
+# Banco H2 (dados locais)
+############################
+data/
+*.mv.db
+*.trace.db
+*.lock.db
+*.log.db
+
+# (Opcional) manter a pasta visível no repo:
+# data/*
+# !data/.gitkeep
+
+############################
+# Arquivos diversos a evitar
+############################
+# Arquivos de pacote do SO
+*.tar
+*.zip
+*.7z
+*.rar
+
+# Coverage / relatórios
+coverage/
+*.exec
+site/
+
+# IDE backups
+*~ 
