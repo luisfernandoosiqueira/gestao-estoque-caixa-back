@@ -8,15 +8,15 @@ public record VendaRequestDTO(
     @NotNull(message = "O usuário é obrigatório")
     Long usuarioId,
 
-    @NotNull
+    // calculado automaticamente pelo sistema
     @PositiveOrZero
     Double valorTotal,
 
-    @NotNull
+    @NotNull(message = "O valor recebido é obrigatório")
     @PositiveOrZero
     Double valorRecebido,
 
-    @NotNull
+    // calculado automaticamente pelo sistema
     @PositiveOrZero
     Double troco,
 
