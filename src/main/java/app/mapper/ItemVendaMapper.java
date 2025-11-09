@@ -1,0 +1,51 @@
+package app.mapper;
+
+import org.springframework.stereotype.Component;
+
+import app.dto.ItemVendaRequestDTO;
+import app.dto.ItemVendaResponseDTO;
+import app.dto.ProdutoResponseDTO;
+import app.entity.ItemVenda;
+import app.entity.Produto;
+import app.entity.Venda;
+
+@Component
+public class ItemVendaMapper {
+
+    private final ProdutoMapper produtoMapper;
+
+    public ItemVendaMapper(ProdutoMapper produtoMapper) {
+        this.produtoMapper = produtoMapper;
+    }
+
+    // DTO → Entidade
+    public ItemVenda toEntity(ItemVendaRequestDTO dto) {
+        if (dto == null) return null;
+
+        ItemVenda i = new ItemVenda();
+        i.setQuantidade(dto.quantidade());
+        i.setPrecoUnitario(dto.precoUnitario());
+        i.setSubtotal(dto.subtotal());
+        // Produto e Venda serão setados no Service
+        return i;
+    }
+
+    // Entidade → DTO
+    public ItemVendaResponseDTO toResponseDTO(ItemVenda i) {
+        if (i == null) return null;
+
+        ProdutoResponseDTO produtoDTO = null;
+        Produto produto = i.getProduto();
+        if (produto != null) {
+            produtoDTO = produtoMapper.toResponseDTO(produto);
+        }
+
+        return new ItemVendaResponseDTO(
+                i.getId(),
+                i.getQuantidade(),
+                i.getPrecoUnitario(),
+                i.getSubtotal(),
+                produtoDTO
+        );
+    }
+}
