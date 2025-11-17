@@ -1,6 +1,7 @@
 package app.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import jakarta.persistence.*;
@@ -29,8 +30,10 @@ public class Venda {
     @Column(nullable = false)
     private Double troco;
 
-    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ItemVenda> itens;
+    //  Cascade ALL e orphanRemoval TRUE garantem que os itens sejam persistidos, atualizados e removidos junto com a venda.
+    
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ItemVenda> itens = new ArrayList<>();
 
     public Venda() {
         this.dataHora = LocalDateTime.now();
@@ -97,6 +100,24 @@ public class Venda {
 
     public void setItens(List<ItemVenda> itens) {
         this.itens = itens;
+        if (itens != null) {
+            itens.forEach(item -> item.setVenda(this)); // ✅ Garante vínculo bidirecional
+        }
+    }
+
+    // ✅ Método auxiliar para adicionar item individual com vínculo automático
+    public void adicionarItem(ItemVenda item) {
+        item.setVenda(this);
+        this.itens.add(item);
+    }
+
+    // ✅ Método útil para cálculo automático no Service
+    public void calcularTotais() {
+        this.valorTotal = this.itens.stream()
+                .mapToDouble(ItemVenda::getSubtotal)
+                .sum();
+        this.troco = (this.valorRecebido != null ? this.valorRecebido : 0.0) - this.valorTotal;
+        if (this.troco < 0) this.troco = 0.0;
     }
 
     @Override

@@ -3,6 +3,7 @@ package app.exceptions;
 import app.dto.ErrorResponseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -38,11 +39,16 @@ public class GlobalExceptionHandler {
         });
         return buildResponse(HttpStatus.BAD_REQUEST, "Erro de validação", fieldErrors);
     }
-        
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponseDTO> handleDataIntegrity(DataIntegrityViolationException ex) {
+        log.error("Violação de integridade de dados", ex);
+        String msg = "Operação não permitida: registro está vinculado a outros dados.";
+        return buildResponse(HttpStatus.CONFLICT, msg, null);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDTO> handleGeneric(Exception ex) {
-       
         log.error("Erro não tratado", ex);
 
         String msg = ex.getMessage();

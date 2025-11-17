@@ -26,17 +26,23 @@ public class Produto {
     @Column(nullable = false)
     private Double precoUnitario;
 
+    @Column // deixa nullable no banco; tratamos default no Java
+    private Boolean ativo = true;
+
     public Produto() {
         this.quantidadeEstoque = 0;
         this.precoUnitario = 0.0;
+        this.ativo = true;
     }
 
-    public Produto(String codigo, String nome, String categoria, Integer quantidadeEstoque, Double precoUnitario) {
+    public Produto(String codigo, String nome, String categoria,
+                   Integer quantidadeEstoque, Double precoUnitario) {
         this.codigo = codigo;
         this.nome = nome;
         this.categoria = categoria;
         this.quantidadeEstoque = (quantidadeEstoque != null ? quantidadeEstoque : 0);
         this.precoUnitario = (precoUnitario != null ? precoUnitario : 0.0);
+        this.ativo = true;
     }
 
     public Long getId() {
@@ -81,6 +87,14 @@ public class Produto {
 
     public void setPrecoUnitario(Double precoUnitario) {
         this.precoUnitario = precoUnitario;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override

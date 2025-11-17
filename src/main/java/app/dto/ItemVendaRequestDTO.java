@@ -7,15 +7,15 @@ public record ItemVendaRequestDTO(
     @NotNull(message = "O produto é obrigatório")
     Long produtoId,
 
-    @NotNull
-    @Positive
+    @NotNull(message = "A quantidade é obrigatória")
+    @Positive(message = "A quantidade deve ser maior que zero")
     Integer quantidade,
 
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "O preço unitário é obrigatório")
+    @PositiveOrZero(message = "O preço unitário não pode ser negativo")
     Double precoUnitario,
 
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "O subtotal é obrigatório")
+    @PositiveOrZero(message = "O subtotal não pode ser negativo")
     Double subtotal
 ) {}
