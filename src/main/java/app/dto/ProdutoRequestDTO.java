@@ -21,5 +21,8 @@ public record ProdutoRequestDTO(
 
     @NotNull
     @PositiveOrZero
-    Double precoUnitario
+    Double precoUnitario,
+
+    // pode vir nulo em updates parciais; front normalmente envia true/false
+    Boolean ativo
 ) {}
