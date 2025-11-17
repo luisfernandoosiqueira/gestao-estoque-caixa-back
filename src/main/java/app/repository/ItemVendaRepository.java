@@ -10,6 +10,9 @@ import app.entity.ItemVenda;
 @Repository
 public interface ItemVendaRepository extends JpaRepository<ItemVenda, Long> {
 
+    // usado para validar se o produto já foi utilizado em alguma venda
+    boolean existsByProdutoId(Long produtoId);
+
     List<ItemVenda> findByVendaId(Long vendaId);
 
     List<ItemVenda> findByProdutoId(Long produtoId);

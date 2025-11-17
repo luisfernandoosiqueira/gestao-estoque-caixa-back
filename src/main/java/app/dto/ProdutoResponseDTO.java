@@ -6,5 +6,6 @@ public record ProdutoResponseDTO(
     String nome,
     String categoria,
     Integer quantidadeEstoque,
-    Double precoUnitario
+    Double precoUnitario,
+    Boolean ativo
 ) {}
